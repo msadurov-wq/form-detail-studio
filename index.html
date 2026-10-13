@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101112">
+  <meta name="description" content="Демонстрационный сайт студии детейлинга: уход за кузовом, полировка, защитные покрытия и химчистка салона.">
+  <title>FORM / Детейлинг-студия — демонстрационный сайт</title>
+  <style>
+    :root {
+      --bg: #101112;
+      --panel: #17191b;
+      --panel-2: #202326;
+      --text: #f3f2ef;
+      --muted: #a8abae;
+      --line: rgba(255,255,255,.12);
+      --accent: #d6fb5b;
+      --accent-ink: #16190d;
+      --max: 1180px;
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+    .topline { border-bottom: 1px solid var(--line); color: var(--muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .topline .wrap { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; }
+    header { position: sticky; top: 0; z-index: 10; background: rgba(16,17,18,.88); backdrop-filter: blur(18px); border-bottom: 1px solid var(--line); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 850; letter-spacing: .09em; }
+    .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; background: var(--accent); color: var(--accent-ink); border-radius: 11px; font-size: 13px; letter-spacing: -.04em; }
+    .brand small { display: block; color: var(--muted); font-size: 9px; letter-spacing: .19em; font-weight: 600; margin-top: -3px; }
+    .navlinks { display: flex; align-items: center; gap: 26px; color: #d3d4d4; font-size: 13px; }
+    .navlinks a:hover, .text-link:hover { color: var(--accent); }
+    .btn { display: inline-flex; justify-content: center; align-items: center; gap: 10px; padding: 14px 19px; min-height: 48px; border-radius: 999px; border: 1px solid transparent; cursor: pointer; font-size: 13px; font-weight: 800; transition: transform .2s ease, background .2s ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: var(--accent); color: var(--accent-ink); }
+    .btn-secondary { border-color: var(--line); background: rgba(255,255,255,.03); color: var(--text); }
+    .menu-toggle { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .menu-btn { display: none; background: none; border: 1px solid var(--line); color: var(--text); border-radius: 12px; width: 44px; height: 44px; cursor: pointer; align-items: center; justify-content: center; padding: 0; }
+    .menu-toggle:focus-visible + .menu-btn { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .menu-icon { width: 19px; height: 14px; position: relative; display: block; }
+    .menu-icon span { position: absolute; left: 0; width: 19px; height: 2px; border-radius: 2px; background: currentColor; transition: top .2s ease, transform .2s ease, opacity .15s ease; }
+    .menu-icon span:nth-child(1) { top: 0; }
+    .menu-icon span:nth-child(2) { top: 6px; }
+    .menu-icon span:nth-child(3) { top: 12px; }
+    .menu-toggle:checked + .menu-btn .menu-icon span:nth-child(1) { top: 6px; transform: rotate(45deg); }
+    .menu-toggle:checked + .menu-btn .menu-icon span:nth-child(2) { opacity: 0; }
+    .menu-toggle:checked + .menu-btn .menu-icon span:nth-child(3) { top: 6px; transform: rotate(-45deg); }
+    .navlinks a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    .hero { padding: 72px 0 54px; }
+    .hero-grid { display: grid; grid-template-columns: 1.02fr .98fr; gap: 44px; align-items: center; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; color: var(--accent); font-size: 11px; font-weight: 850; letter-spacing: .18em; text-transform: uppercase; }
+    .eyebrow:before { content: ""; width: 24px; height: 1px; background: currentColor; }
+    h1 { margin: 20px 0 20px; font-size: clamp(42px, 5.7vw, 76px); line-height: .99; letter-spacing: -.065em; font-weight: 850; max-width: 720px; }
+    h1 em { color: var(--accent); font-style: normal; }
+    .hero-copy { max-width: 540px; color: var(--muted); font-size: 16px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 29px 0 28px; }
+    .microproof { display: flex; flex-wrap: wrap; gap: 18px; color: #c9cbcb; font-size: 12px; }
+    .microproof span { display: inline-flex; gap: 8px; align-items: center; }
+    .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .hero-visual { min-height: 510px; position: relative; border-radius: 28px; overflow: hidden; background: radial-gradient(circle at 75% 24%, #555b60 0, #282c30 25%, #151719 62%, #101112 100%); border: 1px solid rgba(255,255,255,.14); }
+    .hero-visual:before { content: ""; position: absolute; width: 360px; height: 360px; border: 1px solid rgba(214,251,91,.28); border-radius: 50%; right: -75px; top: -75px; box-shadow: 0 0 0 38px rgba(214,251,91,.025), 0 0 0 76px rgba(214,251,91,.02); }
+    .car-art { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .car-art svg { width: 112%; max-width: 700px; filter: drop-shadow(0 32px 22px rgba(0,0,0,.55)); transform: translate(2%, 8%); }
+    .visual-label { position: absolute; left: 24px; bottom: 24px; right: 24px; display: flex; justify-content: space-between; align-items: end; gap: 12px; }
+    .visual-label strong { display: block; font-size: 17px; letter-spacing: -.02em; }
+    .visual-label span { color: #b5b9bb; font-size: 11px; }
+    .visual-tag { border: 1px solid rgba(255,255,255,.2); border-radius: 999px; padding: 9px 12px; color: #f2f2f2 !important; background: rgba(0,0,0,.22); white-space: nowrap; }
+    .demo-note { background: rgba(214,251,91,.08); border: 1px solid rgba(214,251,91,.25); color: #e6f4c1; border-radius: 14px; padding: 12px 15px; font-size: 12px; margin-top: 24px; }
+    .section { padding: 82px 0; border-top: 1px solid var(--line); }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 32px; }
+    .section-kicker { color: var(--accent); font-size: 11px; text-transform: uppercase; letter-spacing: .17em; font-weight: 850; }
+    h2 { margin: 10px 0 0; font-size: clamp(30px, 4vw, 48px); line-height: 1.03; letter-spacing: -.055em; max-width: 700px; }
+    .section-head p { margin: 0; max-width: 390px; color: var(--muted); font-size: 14px; }
+    .service-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    .service { min-height: 245px; padding: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.012)); display: flex; flex-direction: column; }
+    .service-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; border: 1px solid rgba(214,251,91,.28); color: var(--accent); margin-bottom: 28px; }
+    .service h3 { font-size: 19px; margin: 0 0 9px; letter-spacing: -.025em; }
+    .service p { color: var(--muted); font-size: 13px; margin: 0; }
+    .service .number { margin-top: auto; padding-top: 20px; color: #777d80; font-size: 10px; letter-spacing: .15em; }
+    .process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+    .step { padding: 21px; border-radius: 18px; background: var(--panel); border: 1px solid var(--line); }
+    .step-num { color: var(--accent); font-size: 12px; font-weight: 900; letter-spacing: .12em; }
+    .step h3 { margin: 22px 0 8px; font-size: 16px; }
+    .step p { margin: 0; color: var(--muted); font-size: 12px; }
+    .pricing { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .price-card { padding: 30px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--panel); }
+    .price-card.featured { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+    .price-label { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 850; opacity: .72; }
+    .price { font-size: clamp(34px,4vw,48px); font-weight: 850; letter-spacing: -.06em; margin: 15px 0 6px; }
+    .price-card p { font-size: 13px; opacity: .75; }
+    .price-card ul { list-style: none; margin: 24px 0 28px; padding: 0; display: grid; gap: 12px; font-size: 13px; }
+    .price-card li:before { content: "↗"; margin-right: 10px; font-weight: 900; }
+    .price-card .btn-secondary { border-color: rgba(255,255,255,.2); }
+    .price-card.featured .btn-secondary { border-color: rgba(22,25,13,.25); color: var(--accent-ink); }
+    .contact-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 40px; align-items: start; }
+    .contact-copy p { color: var(--muted); max-width: 420px; font-size: 14px; }
+    .contact-meta { margin-top: 26px; display: grid; gap: 12px; color: #d9dbdc; font-size: 13px; }
+    .contact-meta span { color: var(--muted); display: block; font-size: 11px; margin-bottom: 3px; }
+    form { padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    label { display: block; font-size: 11px; color: #d4d6d7; margin-bottom: 7px; }
+    .field { margin-bottom: 15px; }
+    input, select, textarea { width: 100%; border: 1px solid rgba(255,255,255,.13); background: #101213; color: var(--text); border-radius: 11px; padding: 13px 14px; outline: none; }
+    input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+    textarea { min-height: 92px; resize: vertical; }
+    .form-foot { color: var(--muted); font-size: 10px; margin: 13px 0 17px; }
+    .form-message { display: none; border-radius: 10px; padding: 12px; margin-top: 13px; font-size: 12px; background: rgba(214,251,91,.1); color: #e6f4c1; }
+    .form-message.show { display: block; }
+    footer { border-top: 1px solid var(--line); padding: 24px 0; color: var(--muted); font-size: 11px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; align-items: center; }
+    .footer-inner strong { color: var(--text); }
+    .text-link { text-decoration: underline; text-underline-offset: 4px; }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 410px; }
+      .service-grid { grid-template-columns: repeat(2,1fr); }
+      .process-grid { grid-template-columns: repeat(2,1fr); }
+      .contact-grid { grid-template-columns: 1fr; gap: 26px; }
+      .section-head { align-items: start; flex-direction: column; }
+      .navlinks { gap: 14px; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(var(--max), calc(100% - 28px)); }
+      .topline .wrap { font-size: 9px; }
+      .nav { min-height: 66px; }
+      .menu-btn { display: inline-flex; place-items: center; }
+      .nav-cta { display: none; }
+      .navlinks { display: none; position: absolute; left: 14px; right: 14px; top: 66px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: #17191b; flex-direction: column; align-items: stretch; }
+      .navlinks.open, .menu-toggle:checked ~ .navlinks { display: flex; }
+      .navlinks a { padding: 8px 4px; }
+      .hero { padding: 49px 0 38px; }
+      .hero-copy { font-size: 14px; }
+      .hero-visual { min-height: 330px; border-radius: 20px; }
+      .visual-label { left: 16px; right: 16px; bottom: 16px; }
+      .visual-label strong { font-size: 14px; }
+      .visual-tag { font-size: 10px !important; padding: 7px 9px; }
+      .section { padding: 58px 0; }
+      .service-grid, .process-grid, .pricing, .form-grid { grid-template-columns: 1fr; }
+      .service { min-height: 210px; }
+      .price-card { padding: 24px; }
+      form { padding: 18px; }
+      .footer-inner { align-items: start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *:before, *:after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topline">
+    <div class="wrap"><span>Демо-концепция сайта</span><span>Уход за автомобилем · Детейлинг</span></div>
+  </div>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="FORM — на главную">
+        <span class="brand-mark">F/</span><span>FORM<small>DETAIL STUDIO</small></span>
+      </a>
+      <input class="menu-toggle" id="menuToggle" type="checkbox" aria-label="Открыть меню">
+      <label class="menu-btn" id="menuBtn" for="menuToggle" aria-label="Открыть меню"><span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span></label>
+      <nav class="navlinks" id="navlinks" aria-label="Основная навигация">
+        <a href="#services">Услуги</a><a href="#process">Как работаем</a><a href="#prices">Пакеты</a><a href="#contacts">Контакты</a>
+      </nav>
+      <a class="btn btn-primary nav-cta" href="#contacts">Обсудить задачу <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">Детейлинг без лишнего</div>
+          <h1>Уход, который<br>возвращает <em>блеск.</em></h1>
+          <p class="hero-copy">Уход за кузовом и салоном автомобиля — от аккуратной очистки до полировки и защитных покрытий. Подберём решение под состояние машины и ваши задачи.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contacts">Записаться на консультацию <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-secondary" href="#services">Посмотреть услуги</a>
+          </div>
+          <div class="microproof">
+            <span><i class="dot"></i> Подбор работ под автомобиль</span>
+            <span><i class="dot"></i> Согласование до начала работ</span>
+          </div>
+          <div class="demo-note"><strong>Демонстрационный макет.</strong> Название, услуги, цены и контакты условные — замените их данными реального бизнеса перед публикацией.</div>
+        </div>
+        <div class="hero-visual" aria-label="Иллюстрация автомобиля на тёмном фоне">
+          <div class="car-art">
+            <svg viewBox="0 0 780 480" role="img" aria-label="Стилизованный силуэт автомобиля">
+              <defs>
+                <linearGradient id="bodyPaint" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stop-color="#e5e9e9"/>
+                  <stop offset=".23" stop-color="#7c858b"/>
+                  <stop offset=".52" stop-color="#252b30"/>
+                  <stop offset=".75" stop-color="#69737a"/>
+                  <stop offset="1" stop-color="#171a1d"/>
+                </linearGradient>
+                <linearGradient id="glass" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stop-color="#8b999f"/>
+                  <stop offset=".45" stop-color="#182126"/>
+                  <stop offset="1" stop-color="#080b0d"/>
+                </linearGradient>
+                <linearGradient id="light" x1="0" x2="1"><stop stop-color="#d6fb5b"/><stop offset="1" stop-color="#f8ffdc"/></linearGradient>
+              </defs>
+              <ellipse cx="395" cy="354" rx="290" ry="37" fill="#000" opacity=".55"/>
+              <path d="M101 307 L128 268 Q145 251 199 238 L284 157 Q304 137 347 135 L467 141 Q493 144 516 169 L590 237 L650 256 Q677 266 686 291 L680 324 L633 339 L151 339 L106 326 Z" fill="url(#bodyPaint)" stroke="#a9b1b4" stroke-opacity=".55" stroke-width="2"/>
+              <path d="M227 236 L301 166 Q314 155 345 154 L391 155 L388 236 Z" fill="url(#glass)" stroke="#aab4b8" stroke-opacity=".5" stroke-width="2"/>
+              <path d="M405 156 L463 160 Q482 164 501 188 L548 236 L405 236 Z" fill="url(#glass)" stroke="#aab4b8" stroke-opacity=".5" stroke-width="2"/>
+              <path d="M105 304 Q191 287 270 291 Q416 297 683 289" fill="none" stroke="#d7dddf" stroke-opacity=".45" stroke-width="2"/>
+              <path d="M133 270 Q180 257 211 255" fill="none" stroke="#eff3f4" stroke-opacity=".45" stroke-width="3"/>
+              <path d="M544 250 L628 268 Q643 272 651 286 L585 285 Z" fill="#0b0e10" opacity=".75"/>
+              <path d="M116 294 L173 291 L164 305 L111 311 Z" fill="url(#light)"/>
+              <path d="M619 290 L675 291 L670 304 L620 305 Z" fill="#ff5c42" opacity=".9"/>
+              <path d="M299 246 L298 292 M397 245 L398 294 M503 245 L518 294" stroke="#dce2e3" stroke-opacity=".26" stroke-width="2"/>
+              <path d="M173 326 L612 326" stroke="#d6fb5b" stroke-opacity=".65" stroke-width="2"/>
+              <circle cx="229" cy="326" r="49" fill="#0b0d0e" stroke="#596166" stroke-width="7"/>
+              <circle cx="229" cy="326" r="30" fill="#20262a" stroke="#8a9499" stroke-width="3"/>
+              <circle cx="229" cy="326" r="9" fill="#c3c9cc"/>
+              <g stroke="#8a9499" stroke-width="4">
+                <path d="M229 299 V353 M202 326 H256 M210 307 L248 345 M248 307 L210 345"/>
+              </g>
+              <circle cx="570" cy="326" r="49" fill="#0b0d0e" stroke="#596166" stroke-width="7"/>
+              <circle cx="570" cy="326" r="30" fill="#20262a" stroke="#8a9499" stroke-width="3"/>
+              <circle cx="570" cy="326" r="9" fill="#c3c9cc"/>
+              <g stroke="#8a9499" stroke-width="4">
+                <path d="M570 299 V353 M543 326 H597 M551 307 L589 345 M589 307 L551 345"/>
+              </g>
+              <path d="M298 143 Q389 121 477 147" fill="none" stroke="#d6fb5b" stroke-opacity=".65" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="visual-label"><div><strong>Внимание к каждой детали</strong><span>Форма. Поверхность. Защита.</span></div><span class="visual-tag">FORM / 01</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">Что делаем</div><h2>Услуги для чистого<br>и ухоженного авто.</h2></div>
+          <p>Состав работ и итоговая стоимость определяются после осмотра автомобиля и согласования желаемого результата.</p>
+        </div>
+        <div class="service-grid">
+          <article class="service"><div class="service-icon">✳</div><h3>Детейлинг-мойка</h3><p>Бережная очистка кузова и труднодоступных зон с учётом типа поверхности.</p><div class="number">SERVICE / 01</div></article>
+          <article class="service"><div class="service-icon">◈</div><h3>Полировка кузова</h3><p>Подбор подходящего варианта обработки после оценки состояния лакокрасочного покрытия.</p><div class="number">SERVICE / 02</div></article>
+          <article class="service"><div class="service-icon">⬡</div><h3>Защитные покрытия</h3><p>Обсуждение вариантов защиты и ухода с объяснением особенностей каждого решения.</p><div class="number">SERVICE / 03</div></article>
+          <article class="service"><div class="service-icon">⌁</div><h3>Химчистка салона</h3><p>Очистка элементов интерьера с подбором метода под материалы и степень загрязнения.</p><div class="number">SERVICE / 04</div></article>
+          <article class="service"><div class="service-icon">◉</div><h3>Уход за стёклами</h3><p>Очистка стеклянных поверхностей и консультация по поддержанию чистоты.</p><div class="number">SERVICE / 05</div></article>
+          <article class="service"><div class="service-icon">＋</div><h3>Индивидуальный уход</h3><p>Составление набора работ под сезон, привычки использования и состояние автомобиля.</p><div class="number">SERVICE / 06</div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">Прозрачный процесс</div><h2>От первого вопроса<br>до готового авто.</h2></div>
+          <p>Понятные шаги помогают заранее согласовать объём работ, сроки и стоимость.</p>
+        </div>
+        <div class="process-grid">
+          <article class="step"><div class="step-num">STEP / 01</div><h3>Обсуждаем задачу</h3><p>Уточняем автомобиль, состояние поверхности и желаемый результат.</p></article>
+          <article class="step"><div class="step-num">STEP / 02</div><h3>Осматриваем авто</h3><p>Определяем подходящие работы и объясняем ограничения выбранного метода.</p></article>
+          <article class="step"><div class="step-num">STEP / 03</div><h3>Согласуем план</h3><p>Фиксируем состав работ, стоимость и ориентировочные сроки до начала.</p></article>
+          <article class="step"><div class="step-num">STEP / 04</div><h3>Передаём результат</h3><p>Показываем выполненные работы и рассказываем об уходе после обработки.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="prices">
+      <div class="wrap">
+        <div class="section-head">
+          <div><div class="section-kicker">Форматы ухода</div><h2>Выберите отправную точку.</h2></div>
+          <p>Ниже — демонстрационная структура прайса. Условные суммы необходимо заменить реальными ценами студии.</p>
+        </div>
+        <div class="pricing">
+          <article class="price-card">
+            <div class="price-label">Базовый уход</div><div class="price">от 3 000 ₽</div>
+            <p>Для регулярного поддержания чистоты автомобиля.</p>
+            <ul><li>Консультация по состоянию авто</li><li>Согласованный набор очистки</li><li>Рекомендации по дальнейшему уходу</li></ul>
+            <a class="btn btn-secondary" href="#contacts">Уточнить стоимость ↗</a>
+          </article>
+          <article class="price-card featured">
+            <div class="price-label">Комплексный уход</div><div class="price">от 8 000 ₽</div>
+            <p>Для тех, кто хочет обсудить несколько задач за один визит.</p>
+            <ul><li>Осмотр и подбор работ</li><li>Согласованный комплекс услуг</li><li>План ухода под состояние авто</li></ul>
+            <a class="btn btn-secondary" href="#contacts">Подобрать комплекс ↗</a>
+          </article>
+        </div>
+        <p style="color:var(--muted);font-size:11px;margin-top:16px">Цены приведены только для демонстрации интерфейса, не являются публичной офертой и не подтверждают стоимость реальных услуг.</p>
+      </div>
+    </section>
+
+    <section class="section" id="contacts">
+      <div class="wrap contact-grid">
+        <div class="contact-copy">
+          <div class="section-kicker">Связаться со студией</div>
+          <h2>Расскажите,<br>что нужно вашему авто.</h2>
+          <p>Оставьте контакт и коротко опишите задачу. После подключения формы к реальному каналу связи можно будет получать заявки от посетителей сайта.</p>
+          <div class="contact-meta">
+            <div><span>Телефон</span>Заменить на номер студии</div>
+            <div><span>Адрес</span>Добавить реальный адрес или район обслуживания</div>
+            <div><span>График</span>Указать фактические часы работы</div>
+          </div>
+        </div>
+        <form id="leadForm">
+          <div class="form-grid">
+            <div class="field"><label for="name">Как к вам обращаться</label><input id="name" name="name" autocomplete="name" placeholder="Ваше имя" required></div>
+            <div class="field"><label for="phone">Телефон или мессенджер</label><input id="phone" name="phone" autocomplete="tel" placeholder="+7 ..." required></div>
+          </div>
+          <div class="field"><label for="service">Какая услуга интересует?</label><select id="service" name="service" required><option value="">Выберите услугу</option><option>Детейлинг-мойка</option><option>Полировка кузова</option><option>Защитное покрытие</option><option>Химчистка салона</option><option>Пока нужна консультация</option></select></div>
+          <div class="field"><label for="details">Комментарий (необязательно)</label><textarea id="details" name="details" placeholder="Марка авто, задача, удобное время…"></textarea></div>
+          <button class="btn btn-primary" type="submit">Подготовить заявку <span aria-hidden="true">↗</span></button>
+          <div class="form-foot">При отправке ваши контактные данные будут переданы владельцу сайта в Telegram для ответа на обращение. Публикуйте форму только после проверки политики конфиденциальности и применимых требований.</div>
+          <div class="form-message" id="formMessage" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner"><div><strong>FORM / DETAIL STUDIO</strong> — демонстрационный проект</div><div>Макет для презентации. Название и данные условные.</div><a class="text-link" href="#top">Наверх ↑</a></div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const menuToggle = document.getElementById('menuToggle');
+    const navlinks = document.getElementById('navlinks');
+
+    function setMenuOpen(open) {
+      // Checkbox + CSS keeps the menu usable even in simple HTML previews that block JavaScript.
+      menuToggle.checked = open;
+      navlinks.classList.toggle('open', open);
+      menuBtn.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+      menuToggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    }
+
+    menuToggle.addEventListener('change', () => {
+      navlinks.classList.toggle('open', menuToggle.checked);
+      menuBtn.setAttribute('aria-label', menuToggle.checked ? 'Закрыть меню' : 'Открыть меню');
+      menuToggle.setAttribute('aria-label', menuToggle.checked ? 'Закрыть меню' : 'Открыть меню');
+    });
+
+    navlinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => setMenuOpen(false));
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && menuToggle.checked) {
+        setMenuOpen(false);
+        menuBtn.focus();
+      }
+    });
+
+    document.addEventListener('click', event => {
+      if (menuToggle.checked && !navlinks.contains(event.target) &&
+          !menuBtn.contains(event.target) && !menuToggle.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    });
+
+    window.matchMedia('(min-width: 621px)').addEventListener('change', event => {
+      if (event.matches) setMenuOpen(false);
+    });
+    document.getElementById('leadForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const button = form.querySelector('button[type="submit"]');
+      const message = document.getElementById('formMessage');
+      const originalButtonText = button.textContent;
+      message.classList.add('show');
+      message.textContent = 'Отправляем заявку…';
+      button.disabled = true;
+      try {
+        const formData = new FormData(form);
+        const response = await fetch('/.netlify/functions/send-telegram', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.get('name'),
+            phone: formData.get('phone'),
+            service: formData.get('service'),
+            details: formData.get('details')
+          })
+        });
+        const result = await response.json();
+        if (!response.ok || !result.ok) throw new Error('Could not send');
+        message.textContent = 'Спасибо! Заявка отправлена. Владелец свяжется с вами.';
+        form.reset();
+      } catch (error) {
+        message.textContent = 'Не удалось отправить заявку. Попробуйте позже или свяжитесь с нами другим способом.';
+      } finally {
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
