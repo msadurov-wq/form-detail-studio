@@ -32,11 +32,11 @@ export default async (request) => {
   }
 
   const text = [
-    'рџљ РќРѕРІР°СЏ Р·Р°СЏРІРєР° СЃ СЃР°Р№С‚Р° FORM / Detail Studio',
-    `РРјСЏ: ${name}`,
-    `РљРѕРЅС‚Р°РєС‚: ${phone}`,
-    `РЈСЃР»СѓРіР°: ${service}`,
-    `РљРѕРјРјРµРЅС‚Р°СЂРёР№: ${details || 'РЅРµ СѓРєР°Р·Р°РЅ'}`
+    '🚘 Новая заявка с сайта FORM / Detail Studio',
+    `Имя: ${name}`,
+    `Контакт: ${phone}`,
+    `Услуга: ${service}`,
+    `Комментарий: ${details || 'не указан'}`
   ].join('\n');
 
   try {
